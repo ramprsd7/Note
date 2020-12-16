@@ -1,0 +1,52 @@
+<div class="mat-display-2">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row text-center intro-text">
+                <h2>Ideas are priceless., Make a Note of It..</h2>
+            </div>
+
+            <div class="card">
+                <form #noteform="ngForm" (ngSubmit)="onSubmit(noteform)">
+                    <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="notesService.selectedNote._id" />
+                    <mat-form-field class="note-full-width">
+                        <input matInput name="title" id="title" #title="ngModel" placeholder="Title" [(ngModel)]="notesService.selectedNote.title">
+                    </mat-form-field>
+                    <br/>
+                    <mat-form-field class="note-full-width">
+                        <textarea matInput placeholder="Description..." name="description" id="description" #description="ngModel" [(ngModel)]="notesService.selectedNote.description"></textarea>
+                        <!-- <mat-hint align="end">Here's the dropdown arrow ^</mat-hint> -->
+                    </mat-form-field>
+                    <button type="submit" mat-button color="primary">Add Note</button>
+                    <button type="reset" mat-button color="accent">Reset</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="col-md-12">
+    <mat-card class="note-card" *ngFor="let i of notesService.notes">
+        <mat-card-title>
+            {{ i.title }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ i._id }}</mat-card-subtitle>
+        <mat-card-content>
+            <p>
+                {{ i.description }}
+            </p>
+        </mat-card-content>
+        <mat-card-actions>
+            <!-- <button mat-button (click)="onEdit(i)">Edit</button> -->
+            <a class="action-btn" (click)="onEdit(i)">
+                <i class="material-icons">edit</i>
+            </a>
+            <a class="action-btn" (click)="onDelete(i._id,noteform)">
+                <i class="material-icons">delete</i>
+            </a>
+            <!-- <button mat-button>Update</button> -->
+        </mat-card-actions>
+    </mat-card>
+</div>
